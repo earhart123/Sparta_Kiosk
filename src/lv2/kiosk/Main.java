@@ -7,19 +7,22 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         List<MenuItem> menuItemList = createMenuItemList();
 
         while(true) {
             int receivedNumber;
             printMenuItemList(menuItemList);
+            System.out.print("메뉴 선택: ");
             try {
-                receivedNumber = inputNumber();
+                receivedNumber = scanner.nextInt();
             } catch (InputMismatchException e) {
                 System.out.println("유효한 숫자를 입력해주세요.");
+                scanner.next();
                 continue;
             }
 
-            if (!isNumber(receivedNumber)) {
+            if (!(receivedNumber >= 0 && receivedNumber <= 4)) {
                 System.out.println("유효하지 않은 숫자입니다. 다시 입력해주세요.");
                 System.out.println("======================================");
                 continue;
@@ -59,17 +62,5 @@ public class Main {
             System.out.printf("%-15s | W %.1f | %s%n", name, price, description);
         }
         System.out.println("0. 종료             | 종료");
-    }
-
-    public static boolean isNumber(int number){
-        return number >= 0 && number <= 4;
-    }
-
-    public static int inputNumber(){
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.print("메뉴 선택: ");
-
-        return scanner.nextInt();
     }
 }
