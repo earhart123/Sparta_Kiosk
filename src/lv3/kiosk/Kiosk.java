@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Kiosk {
-    List<MenuItem> menuItemList = new ArrayList<>();
-    int receivedNumber;
+    private List<MenuItem> menuItemList = new ArrayList<>();
+    private int receivedNumber;
 
     Kiosk(List<MenuItem> menuItemList){
         this.menuItemList = menuItemList;

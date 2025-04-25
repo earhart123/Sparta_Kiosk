@@ -1,4 +1,4 @@
-package project.kiosk;
+package lv4.kiosk;
 
 public class MenuItem {
     private String name;
@@ -38,5 +38,4 @@ public class MenuItem {
     public String getMenuItemDescription(){
         return description;
     }
-
 }
