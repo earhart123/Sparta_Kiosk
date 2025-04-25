@@ -38,4 +38,8 @@ public class MenuItem {
     public String getMenuItemDescription(){
         return description;
     }
+
+    public void printMenuItem(){
+        System.out.printf("%s | W %.1f | %s%n", name, price, description);
+    }
 }

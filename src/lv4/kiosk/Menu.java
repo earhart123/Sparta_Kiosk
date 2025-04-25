@@ -28,12 +28,23 @@ public class Menu {
     public String getCategoryName(){
         return categoryName;
     }
-
-    public void addMenuItem(MenuItem menuItem){
+    public List<MenuItem> getMenuItemList() {
+        return menuItemList;
     }
 
-    public void printMenuItem(){
+    public void printMenuItems(){
+        for(int i=0; i<menuItemList.size(); i++){
+            String name = menuItemList.get(i).getMenuItemName();
+            double price = menuItemList.get(i).getMenuItemPrice();
+            String description = menuItemList.get(i).getMenuItemDescription();
 
+            System.out.print((i+1)+". ");
+            System.out.printf("%-21s | W %.1f | %s%n", name, price, description);
+        }
+        System.out.println("0. 뒤로가기               | 종료");
+        System.out.print("메뉴 선택: ");
+    }
 
+    public void addMenuItem(MenuItem menuItem){
     }
 }

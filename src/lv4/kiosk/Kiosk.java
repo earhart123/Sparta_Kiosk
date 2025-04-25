@@ -1,31 +1,90 @@
 package lv4.kiosk;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class Kiosk {
     private List<Menu> menuList = new ArrayList<>();
     private List<MenuItem> menuItemList = new ArrayList<>();
+    private int receivedNumber;
+    private int receivedMenuNumber;
 
     public void start() {
         Scanner scanner = new Scanner(System.in);
+        initMenu();
 
         while (true) {
             // List와 Menu 클래스 활용하여 상위 카테고리 메뉴 출력
+            printMenuList();
 
             // 숫자 입력 받기
+             try {
+                 receivedNumber = scanner.nextInt();
+             } catch (InputMismatchException e) {
+                 System.out.println("유효한 숫자를 입력해주세요.");
+                 scanner.next();
+                 continue;
+             }
 
             // 입력 받은 숫자가 올바르다면 인덱스로 활용하여 List에 접근하기
-            // List<Menu>에 인덱스로 접근하면 Menu만 추출할 수 있겠죠?
+            if (!(receivedNumber >= 0 && receivedNumber <= menuList.size())) {
+                System.out.println("유효하지 않은 숫자입니다. 다시 입력해주세요.");
+                System.out.println("======================================");
+                continue;
+            } else if (receivedNumber == 0) {
+                System.out.println("키오스크를 종료합니다.");
+                break;
+            }
 
-            // Menu가 가진 List<MenuItem>을 반복문을 활용하여 햄버거 메뉴 출력
+            while(true) {
 
-            // 숫자 입력 받기
-            // 입력 받은 숫자가 올바르다면 인덱스로 활용해서 Menu가 가지고 있는 List<MenuItem>에 접근하기
-            // menu.getMenuItems().get(i); 같은 형식으로 하나씩 들어가서 얻어와야 합니다.
+                // List<Menu>에 인덱스로 접근하면 Menu만 추출할 수 있겠죠?
+                printMenuItemList(receivedNumber);
+                try {
+                    receivedMenuNumber = scanner.nextInt();
+                } catch (InputMismatchException e) {
+                    System.out.println("유효한 숫자를 입력해주세요.");
+                    scanner.next();
+                    continue;
+                }
+
+                // 입력 받은 숫자가 올바르다면 인덱스로 활용하여 MenuItem 출력
+                Menu menu = menuList.get(receivedNumber - 1);
+                menuItemList = menu.getMenuItemList();
+                if (!(receivedMenuNumber >= 0 && receivedMenuNumber <= menuItemList.size())) {
+                    System.out.println("유효하지 않은 숫자입니다. 다시 입력해주세요.");
+                    System.out.println("======================================");
+                    continue;
+                } else if (receivedMenuNumber == 0) {
+                    System.out.println("카테고리 선택 화면으로 돌아갑니다.");
+                    break;
+                }
+
+                System.out.print("선택한 메뉴: ");
+                MenuItem menuItem = menuItemList.get(receivedMenuNumber - 1);
+                menuItem.printMenuItem();
+
+                System.out.println("======================================");
+                break;
+            }
         }
+    }
+
+    private void printMenuList(){
+        System.out.println("[ MAIN MENU ]");
+        for (int i = 0; i < menuList.size(); i++) {
+            Menu m = menuList.get(i);
+            System.out.println((i + 1) + ". " + m.getCategoryName());
+        }
+        System.out.println("0. 종료      | 종료");
+    }
+
+    private void printMenuItemList(int chosenNumber){
+        Menu menu = menuList.get(chosenNumber-1);
+        System.out.println("[ " + menu.getCategoryName() + " MENU ]");
+        menu.printMenuItems();
     }
 
     private void initMenu(){
