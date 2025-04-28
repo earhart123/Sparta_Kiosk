@@ -12,6 +12,8 @@ public class MenuItem {
         this.name = name;
         this.price = price;
         this.description = description;
+
+        List<String> list = new ArrayList<>();
     }
 
     public String getName(){
