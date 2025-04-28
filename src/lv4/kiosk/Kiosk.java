@@ -10,6 +10,8 @@ public class Kiosk {
     private List<MenuItem> menuItemList = new ArrayList<>();
     private int receivedNumber;
     private int receivedMenuNumber;
+    private int chosenCart;
+    private List<Cart> cartList = new ArrayList<>();
 
     public void start() {
         Scanner scanner = new Scanner(System.in);
@@ -62,12 +64,28 @@ public class Kiosk {
                     break;
                 }
 
-                System.out.print("선택한 메뉴: ");
-                MenuItem menuItem = menuItemList.get(receivedMenuNumber - 1);
-                menuItem.printMenuItem();
+                while(true) {
+                    System.out.print("선택한 메뉴: ");
+                    MenuItem menuItem = menuItemList.get(receivedMenuNumber - 1);
+                    menuItem.printMenuItem();
+
+                    System.out.println("\n위 메뉴를 장바구니에 추가하시겠습니까?");
+                    System.out.println("1. 확인      2. 취소");
+                    chosenCart = scanner.nextInt();
+                    if (chosenCart == 1) {
+                        System.out.printf("%s 장바구니에 추가되었습니다.\n", menuItem.getMenuItemName());
+                        // 장바구니에 추가하는 코드
+                        cartList.add(new Cart(menuItem.getMenuItemName(), menuItem.getMenuItemPrice()));
+                        break;
+                    } else if (chosenCart == 2) {
+                        System.out.println("해당 메뉴 선택이 취소되었습니다. 이전 화면으로 돌아갑니다.");
+                        break;
+                    } else {
+                        System.out.println("유효하지 않은 숫자입니다. 다시 입력해주세요.");
+                    }
+                }
 
                 System.out.println("======================================");
-                break;
             }
         }
     }
@@ -78,13 +96,24 @@ public class Kiosk {
             Menu m = menuList.get(i);
             System.out.println((i + 1) + ". " + m.getCategoryName());
         }
-        System.out.println("0. 종료      | 종료");
+
+        // if 장바구니에 물건이 있다면 4. Orders, 5. Cancel 메뉴를 출력
+        if(!(cartList.isEmpty())){
+            System.out.println("\n[ ORDER MENU ]");
+            System.out.println("4. Orders       | 장바구니를 확인 후 주문합니다.");
+            System.out.println("5. Cancel       | 진행중인 주문을 취소합니다.");
+        }
+        System.out.println("0. 종료       | 종료");
     }
 
     private void printMenuItemList(int chosenNumber){
         Menu menu = menuList.get(chosenNumber-1);
         System.out.println("[ " + menu.getCategoryName() + " MENU ]");
         menu.printMenuItems();
+    }
+
+    private void addCart(){
+
     }
 
     private void initMenu(){
