@@ -13,13 +13,13 @@ public class MenuItem {
     }
 
     // getter
-    public String getMenuItemName(){
+    public String getItemName(){
         return name;
     }
-    public double getMenuItemPrice(){
+    public double getItemPrice(){
         return price;
     }
-    public String getMenuItemDescription(){
+    public String getItemDescription(){
         return description;
     }
 
