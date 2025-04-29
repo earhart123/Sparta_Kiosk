@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Cart {
     // 속성
-    private int quantity;
     private double total=0;
     private List<MenuItem> cartList = new ArrayList<>();
 

@@ -126,9 +126,9 @@ public class Kiosk {
                     // 장바구니 목록 출력
                     System.out.println("[ Cart ]");
                     // 장바구니 리스트에 담긴 아이템 출력
+                    int i=1;
                     for (MenuItem list : cart.getCartList()) {
-                        int i = 0;
-                        System.out.printf("%s. %-21s | W %.1f | %s%n\n", i+1, list.getItemName(), list.getItemPrice(), list.getItemDescription());
+                        System.out.printf("%s. %-21s | W %.1f | %s%n", (i++), list.getItemName(), list.getItemPrice(), list.getItemDescription());
                     }
                     System.out.println("0. 이전 화면으로");
                     // 삭제 또는 모두 삭제
@@ -145,6 +145,7 @@ public class Kiosk {
                         System.out.printf("%s. %s 가 장바구니에서 삭제되었습니다.\n", chosenNumber, cart.getCartList().get(chosenNumber-1).getItemName());
                         cart.removeCart(chosenNumber-1);
 
+                        // 메뉴 삭제 후 장바구니가 비었을 경우 메인 화면으로 이동
                         if(cart.isEmptyList()) break;
                         continue;
                     }else if(chosenNumber == 0){
@@ -194,9 +195,9 @@ public class Kiosk {
         System.out.println("[ Orders ]");
         // 장바구니 리스트에 담긴 아이템 출력
         for(MenuItem list: cart.getCartList()){
-            System.out.printf("%-21s | W %.1f | %s%n\n", list.getItemName(), list.getItemPrice(), list.getItemDescription());
+            System.out.printf("%-21s | W %.1f | %s%n", list.getItemName(), list.getItemPrice(), list.getItemDescription());
         }
-        System.out.println("[ Total ]");
+        System.out.println("\n[ Total ]");
         // 장바구니 아이템 합계금액 출력
         System.out.printf("W %.1f\n", cart.getTotal());
         System.out.println("1. 주문      2. 메뉴판으로");
