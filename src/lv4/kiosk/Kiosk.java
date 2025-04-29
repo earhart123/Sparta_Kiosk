@@ -21,7 +21,7 @@ public class Kiosk {
 
         while (true) {
             // List와 Menu 클래스 활용하여 상위 카테고리 메뉴 출력
-            printMenuList();
+            printMainMenu();
 
             // 숫자 입력 받기
              try {
@@ -32,21 +32,15 @@ public class Kiosk {
                  continue;
              }
 
-            // 유효하지 않은 숫자 입력되었을 경우
-            if (!(receivedNumber >= 0 && receivedNumber <= menuList.size()+2)) {
+            // 분기 처리
+            if (cart.isEmptyList() && (receivedNumber == 5 || receivedNumber == 6)){
                 System.out.println("유효하지 않은 숫자입니다. 다시 입력해주세요.");
                 System.out.println("======================================");
                 continue;
-            } else if (cart.isEmptyList() && (receivedNumber == 5 || receivedNumber == 6)){
-                System.out.println("유효하지 않은 숫자입니다. 다시 입력해주세요.");
-                System.out.println("======================================");
-                continue;
-            }
-
-            if(receivedNumber == 0){
+            } else if(receivedNumber == 0){
                 System.out.println("키오스크를 종료합니다.");
                 break;
-            }else if(receivedNumber >=0 && receivedNumber <= menuList.size()){
+            } else if(receivedNumber >=0 && receivedNumber <= menuList.size()){
                 while(true) {
 
                     printMenuItemList(receivedNumber);
@@ -130,6 +124,7 @@ public class Kiosk {
                     for (MenuItem list : cart.getCartList()) {
                         System.out.printf("%s. %-21s | W %.1f | %s%n", (i++), list.getItemName(), list.getItemPrice(), list.getItemDescription());
                     }
+                    System.out.printf("%s. 전체 삭제\n", cart.getCartList().size()+1);
                     System.out.println("0. 이전 화면으로");
                     // 삭제 또는 모두 삭제
                     System.out.println("삭제할 메뉴를 선택하세요.");
@@ -162,12 +157,15 @@ public class Kiosk {
                         continue;
                     }
                 }
-
+            } else {
+                System.out.println("유효하지 않은 숫자입니다. 다시 입력해주세요.");
+                System.out.println("======================================");
+                continue;
             }
         }
     }
 
-    private void printMenuList(){
+    private void printMainMenu(){
         System.out.println("[ MAIN MENU ]");
         for (int i = 0; i < menuList.size(); i++) {
             Menu m = menuList.get(i);
@@ -187,7 +185,8 @@ public class Kiosk {
         Menu menu = menuList.get(chosenNumber-1);
         System.out.println("[ " + menu.getCategoryName() + " MENU ]");
         menu.printMenuItems();
-
+        System.out.println("0. 뒤로가기               | 종료");
+        System.out.print("메뉴 선택: ");
     }
 
     private void printCartList(){

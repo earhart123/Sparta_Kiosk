@@ -26,4 +26,7 @@ public class MenuItem {
     public void printMenuItem(){
         System.out.printf("%s | W %.1f | %s%n", name, price, description);
     }
+    public void printMenuItem(String nameFormat) {
+        System.out.printf(nameFormat + " | W %.1f | %s%n", name, price, description);
+    }
 }

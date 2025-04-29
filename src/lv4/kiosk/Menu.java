@@ -1,6 +1,7 @@
 package lv4.kiosk;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class Menu {
     private String categoryName;
@@ -21,15 +22,11 @@ public class Menu {
 
     // List에 들어있는 MenuItem을 순차적으로 보여주는 함수
     public void printMenuItems(){
-        for(int i=0; i<menuItemList.size(); i++){
-            String name = menuItemList.get(i).getItemName();
-            double price = menuItemList.get(i).getItemPrice();
-            String description = menuItemList.get(i).getItemDescription();
-
-            System.out.print((i+1)+". ");
-            System.out.printf("%-21s | W %.1f | %s%n", name, price, description);
-        }
-        System.out.println("0. 뒤로가기               | 종료");
-        System.out.print("메뉴 선택: ");
+        IntStream.range(0, menuItemList.size())
+                .forEach(i -> {
+                    MenuItem menuItem = menuItemList.get(i);
+                    System.out.print((i+1)+". ");
+                    menuItem.printMenuItem("%-21s");
+                });
     }
 }
