@@ -16,17 +16,25 @@ public class Cart {
         return this.cartList;
     }
 
+    public double getTotal(){
+        return this.total;
+    }
+
     public void addCart(MenuItem menuItem){
         cartList.add(menuItem);
         total += menuItem.getItemPrice();
     }
 
-    public void removeCart(MenuItem menuItem){
-        cartList.remove(menuItem);
-        total -= menuItem.getItemPrice();
+    public void clearCart(){
+        cartList.clear();
     }
 
     public boolean isEmptyList(){
         return cartList.isEmpty();
+    }
+
+    public void removeCart(int index){
+        total -= cartList.get(index).getItemPrice();
+        cartList.remove(index);
     }
 }
