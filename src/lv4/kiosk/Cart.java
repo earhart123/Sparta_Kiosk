@@ -36,4 +36,13 @@ public class Cart {
         total -= cartList.get(index).getItemPrice();
         cartList.remove(index);
     }
+
+    public void printCartList(){
+        cartList.forEach(item -> item.printMenuItem("%-21s"));
+    }
+    public void printCartList(int index){
+        for (MenuItem item : cartList) {
+            System.out.printf("%s. %-21s | W %.1f | %s%n", (index++), item.getItemName(), item.getItemPrice(), item.getItemDescription());
+        }
+    }
 }
