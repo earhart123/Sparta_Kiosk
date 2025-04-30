@@ -14,6 +14,7 @@ public class Kiosk {
     private int chosenOrder;
     private int chosenNumber;
     private Cart cart = new Cart();
+    private List<MenuItem> cartList = cart.getCartList();
 
     public void start() {
         Scanner scanner = new Scanner(System.in);
@@ -135,9 +136,9 @@ public class Kiosk {
                         scanner.next();
                         continue;
                     }
-                    // 입력받은 번호가 메뉴 숫자보다 많을 경우 재입력 받기
-                    if(chosenNumber >0 && chosenNumber <= cart.getCartList().size()){
-                        System.out.printf("%s. %s 가 장바구니에서 삭제되었습니다.\n", chosenNumber, cart.getCartList().get(chosenNumber-1).getItemName());
+                    // 선택한 메뉴 삭제
+                    if(chosenNumber >0 && chosenNumber <= cartList.size()){
+                        System.out.printf("%s. %s 가 장바구니에서 삭제되었습니다.\n", chosenNumber, cartList.get(chosenNumber-1).getItemName());
                         cart.removeCart(chosenNumber-1);
 
                         // 메뉴 삭제 후 장바구니가 비었을 경우 메인 화면으로 이동
@@ -146,7 +147,7 @@ public class Kiosk {
                     }else if(chosenNumber == 0){
                         break;
                     }
-                    else if(chosenNumber == cart.getCartList().size()+1){ // 카트 리셋
+                    else if(chosenNumber == cartList.size()+1){ // 카트 리셋
                         cart.clearCart();
                         System.out.println("담긴 메뉴가 모두 삭제되었습니다.");
                         break;
@@ -189,13 +190,12 @@ public class Kiosk {
         System.out.print("메뉴 선택: ");
     }
 
+    // 장바구니 주문하는 메뉴 (5. Order) 출력
     private void printCartList(){
         System.out.println("아래와 같이 주문하시겠습니까?\n");
         System.out.println("[ Orders ]");
         // 장바구니 리스트에 담긴 아이템 출력
-        for(MenuItem list: cart.getCartList()){
-            System.out.printf("%-21s | W %.1f | %s%n", list.getItemName(), list.getItemPrice(), list.getItemDescription());
-        }
+        cartList.forEach(item -> item.printMenuItem("%-21s"));
         System.out.println("\n[ Total ]");
         // 장바구니 아이템 합계금액 출력
         System.out.printf("W %.1f\n", cart.getTotal());
