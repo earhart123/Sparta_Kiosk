@@ -110,10 +110,31 @@ public class Kiosk {
                         continue;
                     }
                     if (chosenOrder == 1) {
-                        // 주문 완료 및 장바구니 초기화
-                        System.out.printf("주문이 완료되었습니다. 금액은 W %.1f 입니다.\n", cart.getTotal());
-                        cart.clearCart();
-                        break;
+                        int input;
+                        DiscountType[] discountTypes = DiscountType.values();
+                        System.out.println("할인 정보를 입력해주세요.");
+                        // 할인 유형 및 할인율 출력
+                        for (int i = 0; i < discountTypes.length; i++) {
+                            System.out.println((i + 1) + ". " + discountTypes[i]);
+                        }
+                        // 입력받은 숫자 에러 처리
+                        try {
+                            input = scanner.nextInt();
+                        } catch (InputMismatchException e) {
+                            System.out.println("유효한 숫자를 입력해주세요.");
+                            scanner.next();
+                            continue;
+                        }
+                        // 입력 받은 숫자가 유효할 경우 할인율 계산 및 주문 완료
+                        if (input >= 1 && input <= discountTypes.length) {
+                            DiscountType selectedType = discountTypes[input - 1];
+                            System.out.printf("주문이 완료되었습니다. 금액은 W %.1f 입니다.\n", selectedType.discountPrice(cart.getTotal()));
+                            cart.clearCart();
+                            break;
+                        } else {
+                            System.out.println("잘못된 번호입니다. 다시 입력해주세요.");
+                            // 숫자 입력받는 루프로 이동
+                        }
                     } else if (chosenOrder == 2) {
                         System.out.println("이전 화면으로 돌아갑니다.");
                         break;
