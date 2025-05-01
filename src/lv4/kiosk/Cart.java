@@ -26,6 +26,7 @@ public class Cart {
 
     public void clearCart(){
         cartList.clear();
+        total = 0;
     }
 
     public boolean isEmptyList(){

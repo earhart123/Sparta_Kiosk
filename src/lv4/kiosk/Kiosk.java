@@ -101,6 +101,7 @@ public class Kiosk {
             else if(mainNumber == 5) {
                 while(true) {
                     // 장바구니 주문 메뉴 출력
+                    if(cart.isEmptyList()) break;
                     printOrderMenu();
                     try {
                         chosenOrder = scanner.nextInt();
