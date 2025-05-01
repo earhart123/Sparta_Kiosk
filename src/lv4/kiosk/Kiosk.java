@@ -69,6 +69,7 @@ public class Kiosk {
                         break;
                     }
 
+                    // 선택한 메뉴 장바구니에 추가 및 취소
                     while(true) {
                         System.out.print("선택한 메뉴: ");
                         MenuItem menuItem = menuItemList.get(menuNumber - 1);
@@ -110,6 +111,7 @@ public class Kiosk {
                         scanner.next();
                         continue;
                     }
+                    // 메뉴 주문
                     if (chosenOrder == 1) {
                         int input;
                         DiscountType[] discountTypes = DiscountType.values();
@@ -142,7 +144,7 @@ public class Kiosk {
                                 // continue;
                             }
                         }
-                    } else if (chosenOrder == 2) {
+                    } else if (chosenOrder == 2) { // 메뉴 주문 취소
                         System.out.println("이전 화면으로 돌아갑니다.");
                         break;
                     } else {
@@ -236,6 +238,7 @@ public class Kiosk {
         System.out.println("1. 주문      2. 메뉴판으로");
     }
 
+    // 메뉴 추가
     private void initMenu(){
         List<MenuItem> burgerItemList = new ArrayList<>();
         burgerItemList.add(new MenuItem("ShackBurger", 6.9, "토마토, 양상추, 쉑소스가 토핑된 치즈버거"));

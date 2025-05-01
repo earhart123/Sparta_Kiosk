@@ -13,6 +13,7 @@ public class Menu {
         this.categoryName = categoryName;
     }
 
+    // getter
     public String getCategoryName() {
         return categoryName;
     }

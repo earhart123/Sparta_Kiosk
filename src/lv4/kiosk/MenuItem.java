@@ -23,9 +23,11 @@ public class MenuItem {
         return description;
     }
 
+    // 메뉴 아이템 출력
     public void printMenuItem(){
         System.out.printf("%s | W %.1f | %s%n", name, price, description);
     }
+    // 이름 출력 형식 받아 메뉴 아이템 출력
     public void printMenuItem(String nameFormat) {
         System.out.printf(nameFormat + " | W %.1f | %s%n", name, price, description);
     }
