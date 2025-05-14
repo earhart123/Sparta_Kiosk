@@ -1,4 +1,4 @@
-# Sparta_Calculator
+# Sparta_Kiosk
 스파르타코딩 내일배움캠프 - 키오스크 프로젝트
 
 ## 프로젝트 소개
